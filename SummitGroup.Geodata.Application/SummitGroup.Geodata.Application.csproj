@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DependencyInjection\" />
+    <Folder Include="Entities\Address\Interfaces\" />
+    <Folder Include="Entities\Address\Repositories\" />
+    <Folder Include="Entities\Location\Domain\" />
+    <Folder Include="Entities\Location\Interfaces\" />
+    <Folder Include="Entities\Location\Repositories\" />
+  </ItemGroup>
+
+</Project>
