@@ -8,11 +8,10 @@
 
   <ItemGroup>
     <Folder Include="DependencyInjection\" />
-    <Folder Include="Entities\Address\Interfaces\" />
-    <Folder Include="Entities\Address\Repositories\" />
-    <Folder Include="Entities\Location\Domain\" />
-    <Folder Include="Entities\Location\Interfaces\" />
-    <Folder Include="Entities\Location\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
