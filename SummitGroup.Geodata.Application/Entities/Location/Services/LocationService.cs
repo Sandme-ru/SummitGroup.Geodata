@@ -21,9 +21,6 @@ public class LocationService(IHttpClientFactory httpClientFactory) : ILocationSe
 
             var content = LocationHelperService.CompilingData(locationDto);
 
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", "9b5dcf4d97607746e3949d2c8629d05574931124");
-
             var response = await _httpClient.PostAsync(url, content);
 
             if (response.IsSuccessStatusCode)

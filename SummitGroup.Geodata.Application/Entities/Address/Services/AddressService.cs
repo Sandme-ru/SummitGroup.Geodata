@@ -3,7 +3,6 @@ using SummitGroup.Geodata.Application.Entities.Address.Interfaces;
 using Newtonsoft.Json;
 using SummitGroup.Geodata.Application.Entities.Location.Dto;
 using SummitGroup.Geodata.Application.Utilities.OperationResults;
-using SummitGroup.Geodata.Application.Entities.Location.Domain;
 
 namespace SummitGroup.Geodata.Application.Entities.Address.Services;
 
@@ -18,8 +17,6 @@ public class AddressService(IHttpClientFactory httpClientFactory) : IAddressServ
             var url = $"/search?country={address.Country}&city={address.City} {address.Region}&street={address.Street} {address.House} {address.Apartment}&format=json&limit=1";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-            request.Headers.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36");
 
             var response = await _httpClient.SendAsync(request);
 

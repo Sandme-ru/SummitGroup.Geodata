@@ -11,7 +11,7 @@ public static class LocationHelperService
 {
     private static readonly Random Random = new();
 
-    private const int RadiusValue = 500;
+    private const int RadiusValue = 1000;
 
     private const int AddressCount = 10;
 
