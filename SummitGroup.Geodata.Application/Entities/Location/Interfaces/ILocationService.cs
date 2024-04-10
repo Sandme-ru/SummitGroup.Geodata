@@ -5,5 +5,5 @@ namespace SummitGroup.Geodata.Application.Entities.Location.Interfaces;
 
 public interface ILocationService
 {
-    Task<List<AddressDto>> ReverseGeocodeAsync(LocationDto locationDto);
+    Task<List<AddressDto>?> ReverseGeocodeAsync(LocationDto locationDto);
 }
