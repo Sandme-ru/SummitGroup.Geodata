@@ -1,0 +1,16 @@
+2024-04-10 14:19:33.0909 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2024-04-10 14:19:33.1234 Info Registered target NLog.Targets.FileTarget(Name=ownFile)
+2024-04-10 14:19:33.1234 Info Registered target NLog.Targets.ConsoleTarget(Name=console)
+2024-04-10 14:19:33.1709 Info Registered target NLog.Targets.MailTarget(Name=firstMail)
+2024-04-10 14:19:33.2186 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2024-04-10 14:19:33.2186 Info Validating config: TargetNames=allfile, console, ownFile, firstMail, ConfigItems=103, FilePath=C:\Users\zzmin\source\repos\SummitGroup.Geodata\SummitGroup.Geodata.WebApi\bin\Debug\net8.0\NLog.config
+2024-04-10 14:19:33.2523 Info Configuration initialized.
+2024-04-10 14:19:33.5017 Info Validating config: TargetNames=allfile, console, ownFile, firstMail, ConfigItems=103, FilePath=C:\Users\zzmin\source\repos\SummitGroup.Geodata\SummitGroup.Geodata.WebApi\bin\Debug\net8.0\NLog.config
+2024-04-10 14:22:01.7168 Info Registered target NLog.Targets.FileTarget(Name=allfile)
+2024-04-10 14:22:01.7473 Info Registered target NLog.Targets.FileTarget(Name=ownFile)
+2024-04-10 14:22:01.7526 Info Registered target NLog.Targets.ConsoleTarget(Name=console)
+2024-04-10 14:22:01.8189 Info Registered target NLog.Targets.MailTarget(Name=firstMail)
+2024-04-10 14:22:01.8461 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.8.2366. Product version: 5.2.8+f586f1341c46fa38aaaff4c641e7f0fa7e813943. GlobalAssemblyCache: False
+2024-04-10 14:22:01.8635 Info Validating config: TargetNames=allfile, console, ownFile, firstMail, ConfigItems=103, FilePath=C:\Users\zzmin\source\repos\SummitGroup.Geodata\SummitGroup.Geodata.WebApi\bin\Debug\net8.0\NLog.config
+2024-04-10 14:22:01.8905 Info Configuration initialized.
+2024-04-10 14:22:02.1329 Info Validating config: TargetNames=allfile, console, ownFile, firstMail, ConfigItems=103, FilePath=C:\Users\zzmin\source\repos\SummitGroup.Geodata\SummitGroup.Geodata.WebApi\bin\Debug\net8.0\NLog.config
