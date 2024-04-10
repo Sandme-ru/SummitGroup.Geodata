@@ -5,6 +5,7 @@
 /// </summary>
 public class AddressDto
 {
+    public string Country { get; set; }
     /// <summary>
     /// Gets or sets the region.
     /// </summary>
@@ -34,5 +35,4 @@ public class AddressDto
     /// </summary>
     /// <value>The apartment.</value>
     public string Apartment { get; set; }
-
 }
