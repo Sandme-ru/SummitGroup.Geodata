@@ -13,7 +13,7 @@ namespace SummitGroup.Geodata.WebApi.Controllers;
 /// <seealso cref="ControllerBase" />
 [ApiController]
 [Route("[controller]")]
-public class LocationController(ILocationService locationService) : ControllerBase
+public class LocationController(ILocationService locationService, ILogger<AddressController> logger) : ControllerBase
 {
     /// <summary>
     /// Gets the addresses task.
@@ -23,6 +23,8 @@ public class LocationController(ILocationService locationService) : ControllerBa
     [HttpPost("GetAddresses")]
     public async Task<OperationResult<IEnumerable<AddressDto>>> GetAddressesTask(LocationDto dto)
     {
+        logger.LogInformation($"Received request to get location data for address: {dto}");
+
         var result = await locationService.ReverseGeocodeAsync(dto);
         return result;
     }

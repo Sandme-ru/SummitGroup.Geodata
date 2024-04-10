@@ -1,11 +1,26 @@
+using NLog.Web;
+using NLog;
 using SummitGroup.Geodata.Application.Entities.Address.Interfaces;
 using SummitGroup.Geodata.Application.Entities.Address.Services;
 using SummitGroup.Geodata.Application.Entities.Location.Interfaces;
 using SummitGroup.Geodata.Application.Entities.Location.Services;
 using System.Net.Http.Headers;
-using System.Reflection;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Logger
+
+builder.Host.ConfigureLogging(logging =>
+{
+    _ = logging.ClearProviders();
+    _ = logging.SetMinimumLevel(LogLevel.Information);
+}).UseNLog();
+
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+logger.Debug("INIT MAIN");
+
+#endregion
 
 builder.Services.AddControllers();
 
