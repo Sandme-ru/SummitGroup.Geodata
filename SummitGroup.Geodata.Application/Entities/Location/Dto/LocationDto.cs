@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace SummitGroup.Geodata.Application.Entities.Location.Dto;
+﻿namespace SummitGroup.Geodata.Application.Entities.Location.Dto;
 
 /// <summary>
 /// Class LocationDro.
@@ -11,15 +9,11 @@ public class LocationDto
     /// Gets or sets the latitude.
     /// </summary>
     /// <value>The latitude.</value>
-    public double lat { get; set; }
+    public double Latitude { get; set; }
 
     /// <summary>
     /// Gets or sets the longitude.
     /// </summary>
     /// <value>The longitude.</value>
-    public double lon { get; set; }
-
-    public int count { get; set; }
-
-    public int radius { get; set; }
+    public double Longitude { get; set; }
 }

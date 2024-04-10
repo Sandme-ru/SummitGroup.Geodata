@@ -1,6 +1,9 @@
 ﻿using SummitGroup.Geodata.Application.Entities.Address.Dto;
 using SummitGroup.Geodata.Application.Entities.Address.Interfaces;
 using Newtonsoft.Json;
+using SummitGroup.Geodata.Application.Entities.Location.Dto;
+using SummitGroup.Geodata.Application.Utilities.OperationResults;
+using SummitGroup.Geodata.Application.Entities.Location.Domain;
 
 namespace SummitGroup.Geodata.Application.Entities.Address.Services;
 
@@ -8,7 +11,7 @@ public class AddressService(IHttpClientFactory httpClientFactory) : IAddressServ
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient("Nominatim");
 
-    public async Task<Location.Dto.LocationDto> GetGeoDataAsync(AddressDto address)
+    public async Task<OperationResult<LocationDto>> GetGeoDataAsync(AddressDto address)
     {
         try
         {
@@ -23,30 +26,36 @@ public class AddressService(IHttpClientFactory httpClientFactory) : IAddressServ
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                var parsedLocation = JsonConvert.DeserializeObject <List<Domain.Address >>(json);
+                var parsedLocation = JsonConvert.DeserializeObject <List<Domain.Address>>(json);
+
                 if (parsedLocation != null)
                 {
-                    var location = new Location.Dto.LocationDto
+                    if(parsedLocation.Any())
                     {
-                        lat = Convert.ToDouble(parsedLocation[0].lat),
-                        lon = Convert.ToDouble(parsedLocation[0].lon),
-                    };
-                    return location;
+                        var location = new LocationDto
+                        {
+                            Latitude = Convert.ToDouble(parsedLocation[0].lat),
+                            Longitude = Convert.ToDouble(parsedLocation[0].lon),
+                        };
+
+                        return OperationResult<LocationDto>.SuccessResult(location);
+                    }
+
+                    return OperationResult<LocationDto>.FailedResult("[NO CONTENT: 204] Введены некорретные входные параметры для определения геолокации адреса");
                 }
                 else
-                {
-                    return null;
-                }
+                    return OperationResult<LocationDto>.FailedResult("[NO CONTENT: 204] Parsed location in null value");
             }
             else
-            {
-                return null;
-            }
+                return OperationResult<LocationDto>.FailedResult(response.ReasonPhrase!);
+        }
+        catch (HttpRequestException ex)
+        {
+            return OperationResult<LocationDto>.FailedResult($"HTTP error occurred: {ex.Message}");
         }
         catch (Exception ex)
         {
-            throw;
+            return OperationResult<LocationDto>.FailedResult($"An error occurred: {ex.Message}");
         }
     }
-
 }
