@@ -1,11 +1,11 @@
-﻿using SummitGroup.Geodata.Application.Entities.Location.Interfaces;
+﻿using Newtonsoft.Json.Linq;
 using SummitGroup.Geodata.Application.Entities.Address.Dto;
-using SummitGroup.Geodata.Application.Entities.Location.Dto;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text;
 using SummitGroup.Geodata.Application.Entities.Location.Domain;
-using Newtonsoft.Json.Linq;
+using SummitGroup.Geodata.Application.Entities.Location.Dto;
+using SummitGroup.Geodata.Application.Entities.Location.Helpers;
+using SummitGroup.Geodata.Application.Entities.Location.Interfaces;
+using System.Net.Http.Headers;
+using SummitGroup.Geodata.Application.Utilities.OperationResults;
 
 namespace SummitGroup.Geodata.Application.Entities.Location.Services;
 
@@ -13,48 +13,37 @@ public class LocationService(IHttpClientFactory httpClientFactory) : ILocationSe
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient("Dadata");
 
-    public async Task<List<AddressDto>?> ReverseGeocodeAsync(LocationDto locationDto)
+    public async Task<OperationResult<IEnumerable<AddressDto>>> ReverseGeocodeAsync(LocationDto locationDto)
     {
         try
         {
-            var url = "/suggestions/api/4_1/rs/geolocate/address";
+            const string url = "/suggestions/api/4_1/rs/geolocate/address";
 
-            var requestData = JsonConvert.SerializeObject(locationDto);
-            var content = new StringContent(requestData, Encoding.UTF8, "application/json");
+            var content = LocationHelperService.CompilingData(locationDto);
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", "9b5dcf4d97607746e3949d2c8629d05574931124");
 
             var response = await _httpClient.PostAsync(url, content);
+
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 var jsonObject = JObject.Parse(jsonResponse);
                 var parsedSuggestions = jsonObject["suggestions"]?.ToObject<List<Suggestion>>();
-
-
-                if (parsedSuggestions != null)
-                {
-                    var addressDtos = LocationToAddressConverter.ConvertToAddressDtoList(parsedSuggestions);
-                    return addressDtos;
-                }
-                else
-                {
-                    return null;
-                }
+                
+                return OperationResult<IEnumerable<AddressDto>>.SuccessResult(LocationHelperService.ConvertToAddressDtoList(parsedSuggestions ?? new List<Suggestion>()));
             }
             else
-            {
-                return null;
-            }
+                return OperationResult<IEnumerable<AddressDto>>.FailedResult($"{response.StatusCode} {response.ReasonPhrase!}");
         }
         catch (HttpRequestException ex)
         {
-            throw new Exception($"HTTP error occurred: {ex.Message}");
+            return OperationResult<IEnumerable<AddressDto>>.FailedResult($"HTTP error occurred: {ex.Message}");
         }
         catch (Exception ex)
         {
-            throw new Exception($"An error occurred: {ex.Message}");
+            return OperationResult<IEnumerable<AddressDto>>.FailedResult($"An error occurred: {ex.Message}");
         }
     }
 }

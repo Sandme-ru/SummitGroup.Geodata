@@ -2,6 +2,7 @@
 using SummitGroup.Geodata.Application.Entities.Address.Dto;
 using SummitGroup.Geodata.Application.Entities.Address.Interfaces;
 using SummitGroup.Geodata.Application.Entities.Location.Dto;
+using SummitGroup.Geodata.Application.Utilities.OperationResults;
 
 namespace SummitGroup.Geodata.WebApi.Controllers;
 
@@ -10,17 +11,9 @@ namespace SummitGroup.Geodata.WebApi.Controllers;
 public class AddressController(IAddressService addressService) : ControllerBase
 {
     [HttpPost("GetLocationTask")]
-    public async Task<LocationDto> GetLocationTask(AddressDto dto)
+    public async Task<OperationResult<LocationDto>> GetLocationTask(AddressDto dto)
     {
         var result = await addressService.GetGeoDataAsync(dto);
         return result;
     }
 }
-
-//{
-//"region": "Татарстан",
-//"city": "Казань",
-//"street": "Ямашева",
-//"house": "92",
-//"apartment": "47"
-//}

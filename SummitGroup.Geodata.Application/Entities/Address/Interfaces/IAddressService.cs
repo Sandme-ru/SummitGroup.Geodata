@@ -1,4 +1,6 @@
 ﻿using SummitGroup.Geodata.Application.Entities.Address.Dto;
+using SummitGroup.Geodata.Application.Entities.Location.Dto;
+using SummitGroup.Geodata.Application.Utilities.OperationResults;
 
 namespace SummitGroup.Geodata.Application.Entities.Address.Interfaces;
 
@@ -12,5 +14,5 @@ public interface IAddressService
     /// </summary>
     /// <param name="addressDto">The address dto.</param>
     /// <returns>Task&lt;Domain.Address&gt;.</returns>
-    Task<Location.Dto.LocationDto> GetGeoDataAsync(AddressDto addressDto);
+    Task<OperationResult<LocationDto>> GetGeoDataAsync(AddressDto addressDto);
 }
