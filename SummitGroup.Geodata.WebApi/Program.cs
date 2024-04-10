@@ -3,14 +3,18 @@ using SummitGroup.Geodata.Application.Entities.Address.Services;
 using SummitGroup.Geodata.Application.Entities.Location.Interfaces;
 using SummitGroup.Geodata.Application.Entities.Location.Services;
 using System.Net.Http.Headers;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "SummitGroup.Geodata.TestTask - Shvyrkalov Matvey", Version = "v1" });
 
+});
 builder.Services.AddScoped<ILocationService, LocationService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 

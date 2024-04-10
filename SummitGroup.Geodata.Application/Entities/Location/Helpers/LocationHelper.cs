@@ -7,14 +7,31 @@ using System.Text;
 
 namespace SummitGroup.Geodata.Application.Entities.Location.Helpers;
 
+/// <summary>
+/// Class LocationHelperService.
+/// </summary>
 public static class LocationHelperService
 {
+    /// <summary>
+    /// The random
+    /// </summary>
     private static readonly Random Random = new();
 
+    /// <summary>
+    /// The radius value
+    /// </summary>
     private const int RadiusValue = 1000;
 
+    /// <summary>
+    /// The address count
+    /// </summary>
     private const int AddressCount = 10;
 
+    /// <summary>
+    /// Converts to address dto list.
+    /// </summary>
+    /// <param name="suggestions">The suggestions.</param>
+    /// <returns>IEnumerable&lt;AddressDto&gt;.</returns>
     public static IEnumerable<AddressDto> ConvertToAddressDtoList(List<Suggestion> suggestions)
     {
         if (suggestions.Any())
@@ -33,11 +50,20 @@ public static class LocationHelperService
             return new List<AddressDto>();
     }
 
+    /// <summary>
+    /// Generates the random apartment number.
+    /// </summary>
+    /// <returns>System.String.</returns>
     private static string GenerateRandomApartmentNumber()
     {
         return Random.Next(1, 31).ToString();
     }
 
+    /// <summary>
+    /// Compilings the data.
+    /// </summary>
+    /// <param name="locationDto">The location dto.</param>
+    /// <returns>StringContent.</returns>
     public static StringContent CompilingData(LocationDto locationDto)
     {
         var requestData = new LocationRequest
